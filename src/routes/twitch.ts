@@ -5,8 +5,6 @@ import { ClientRequest } from "http";
 const router = Router();
 var twitchToken: Token;
 
-
-
 router.post('/', (req: Request, res: Response) => {
     let userName = req.query.userName || null;
     console.log('Username is: ' + userName)
