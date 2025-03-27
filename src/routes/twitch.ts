@@ -1,10 +1,8 @@
 import { Router, Request, Response } from "express";
-import { TwitchUser, TwitchAPI } from "../models/twitch";
+import tApi from "../lib/apiConnection"
 
 const router = Router();
-const clientID = process.env.CLIENT_ID || "NA";
-const clientSecret = process.env.CLIENT_SECRET || "NA";
-const tApi = new TwitchAPI(clientID, clientSecret)
+
 
 router.post('/', (req: Request, res: Response) => {
     let userName = req.query.userName || null;

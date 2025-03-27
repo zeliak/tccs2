@@ -1,7 +1,5 @@
 import express, { Request, Response } from 'express';
 import twitchRoutes from './routes/twitch';
-import { AppTokenAuthProvider } from '@twurple/auth';
-import { ApiClient } from '@twurple/api';
 
 const app = express();
 const port = process.env.PORT || 5000;
