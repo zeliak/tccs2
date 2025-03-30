@@ -1,6 +1,9 @@
 import { Router, Request, Response } from "express";
 import tApi from "../lib/apiConnection"
 import { twitchGlobalBadges } from "../lib/badges"
+import { IUserBadge, Badge } from "../models/badges";
+import { collections } from "../lib/dbConnection";
+import { ObjectId } from "mongodb";
 
 const router = Router();
 const  corsHeader = new Headers()
@@ -29,11 +32,7 @@ router.get('/userpfp', (req: Request, res: Response) => {
     }
 });
 
-interface IUserBadge {
-    name: string
-    imgUrl?: string
-    version: string
-}
+
 
 router.post('/userbadge', async (req: Request, res: Response) => {
     const data = req.body;
@@ -65,6 +64,27 @@ router.post('/userbadge', async (req: Request, res: Response) => {
     else {
         res.status(201).send('No Data');
     }
+});
+
+router.post('/pop', async (req: Request, res: Response) => {
+    const badges = await twitchGlobalBadges;
+
+    for (let i = 0; i < badges.length; i++) {
+        const badge = badges[i];
+        for (let j = 0; j < badge.versions.length; j++) {
+            try {
+                const version = badge.versions[j];
+                const url = await version.getImageUrl(1);
+                const myBadge: Badge = new Badge(badge.id, version.id as string, url)
+                const result = await collections.badges?.insertOne(myBadge)
+            }
+            catch (error) {
+                console.error('Failed to get badges', error)
+            }
+        }
+    }
+
+    res.status(200).send('guess what')
 });
 
 export default router;

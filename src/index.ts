@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import twitchRoutes from './routes/twitch';
+import { dbConnection } from './lib/dbConnection';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,7 +27,11 @@ app.use(function(req: Request, res: Response, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST");
   next();
 });
-app.use('/twitch', twitchRoutes);
+
+dbConnection()
+  .then(() => app.use('/twitch', twitchRoutes))
+  .catch(e => console.error('DB Connection failed', e))
+
 
 app.get('/status', (req: Request, res: Response) => {
   res.status(statusCode).json({

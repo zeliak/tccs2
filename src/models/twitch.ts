@@ -1,6 +1,7 @@
 import { AppTokenAuthProvider } from "@twurple/auth";
 import { ApiClient } from '@twurple/api';
 
+
 export interface TwitchUser {
     id: number;
     userName: string;
@@ -24,6 +25,6 @@ export class TwitchAPI {
     }
 
     private setApiConnection(authProvider: AppTokenAuthProvider): ApiClient {
-        return new ApiClient({ authProvider})
+        return new ApiClient({ authProvider });
     }
 }
