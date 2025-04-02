@@ -7,5 +7,5 @@ export interface IUserBadge {
 }
 
 export class Badge {
-    constructor(public name: string, public version: string, public imgUrl?:string, public id?: ObjectId) {}
+    constructor(public name: string, public version: string, public imgUrl?:string, public _id?: ObjectId) {}
 }

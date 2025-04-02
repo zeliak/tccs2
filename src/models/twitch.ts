@@ -8,13 +8,6 @@ export interface TwitchUser {
     profileImageUrl: string;
 }
 
-export interface Token {
-    accessToken: string;
-    expiresIn: number;
-    tokenType: string;
-    timeStamp: Date;
-}
-
 export class TwitchAPI {
     private authProvider: AppTokenAuthProvider;
     public apiConnection: ApiClient;

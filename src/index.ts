@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
-import twitchRoutes from './routes/twitch';
+import { userRouter } from './routes/user';
 import { dbConnection } from './lib/dbConnection';
+import badgeRouter from './routes/badges';
+import emoteRouter from './routes/emotes';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -29,7 +31,11 @@ app.use(function(req: Request, res: Response, next) {
 });
 
 dbConnection()
-  .then(() => app.use('/twitch', twitchRoutes))
+  .then(() => {
+    app.use('/user', userRouter);
+    app.use('/badge', badgeRouter);
+    app.use('/emote', emoteRouter);
+  })
   .catch(e => console.error('DB Connection failed', e))
 
 
