@@ -7,5 +7,5 @@ export interface IEmote {
 }
 
 export class Emote {
-    constructor(public name: string, public imgUrl: string, public _id?: ObjectId) {}
+    constructor(public name: string, public imgUrl: string, public twitchId: string, public _id?: ObjectId) {}
 }
